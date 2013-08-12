@@ -1,0 +1,376 @@
+
+<!DOCTYPE html>
+<html>
+    <head>
+		<title> {Title}</title>
+		<style>
+		html {
+    		height:100%;
+            font-size: 12px;
+		}
+
+		body {
+   		 	height:100%;
+    		min-height: 100%;
+		}
+
+
+		#posts {
+		    position: absolute;
+		    top: 50%;
+		    float:left;
+		    display: inline;
+		    margin:-18% -1000% 0% 11%;
+		    clear: both;
+            overflow: visible;
+		}
+		
+		#header {
+		    height:100%;
+		    width: 10%;
+            padding: 1em;
+		    overflow: visible;
+		    position: fixed;
+		    top:0;
+            left: 0;
+		    bottom:0;
+            background: red;
+            z-index: 50;
+		} 
+		
+		
+			#posts li {
+                width: 500px;
+				color: #fff;
+				list-style: none;
+				margin: 1em;
+				padding: 1em;
+				border-radius: 0.3em;
+				background: rgba(0,0,0, 0.7);
+                float: left;
+                display: inline-block;
+			}
+            #posts li ul li {
+                display: none;
+                float: none;
+            }
+			#posts a {
+				color: red;
+			}
+			#posts .chat li {
+				background: rgba(200,200,200, 0.5);
+			}
+		</style>
+	</head>
+	<body>
+		<header id="header">
+			<h1> {Title}</h1>
+			{block:Description}
+				<p id="description">{Description}</p> 
+			{/block:Description}
+		</header>
+		
+		<ul id="posts"> 
+			{block:Posts}
+				{block:Text}
+					<li class="post_text">
+						{block:Title}
+							<h3><a href=#>{Permalink}</a></h3>
+						{/block:Title}
+						{body}
+					</li>
+				{block:Text}
+				
+				{block:Photo}
+					<li class="post_photo">
+						<img src="{PhotoURL-500}" alt="{PhotoAlt}"/> 
+						{block:Caption}
+							<div class="caption">{Caption}</div>
+						{block:Caption}
+					</li>
+				{/block:Photo}
+				
+				{block:Panorama}
+					<li class="post_panorama">
+						{LinkOpenTag}
+							<img src="{PhotoURL-Panorama}" alt="{PhotoAlt}"/>
+						{LinkCloseTag}
+						{block:Caption}
+							<div class="caption">{Caption}</div>
+						{/block:Caption}
+					</li>
+				{/block:Panorama}
+				
+				{block:Photoset}
+					<li class="post_photoset">
+						{Photoset-500}
+						{block:Caption}
+							<div class="caption">{Caption}</div>
+						{/block:Caption}
+					</li>
+				{/block:Photoset}
+				
+				{block:Quote}
+					<li class="post_quote">
+						"{Quote}"
+						{block:Source}
+							<div class="source">{Source}</div>
+						{/block:Source}
+					</li>
+				{/block:Quote}
+				
+				{block:Link}
+					<li class="post_link">
+						<a href="{URL}" class="link" {Target}>{Name}</a>
+						{block:Description}
+							<div class="description">{Description}</div>
+						{/block:Description}
+					</li>
+				{/block:Link}
+				
+				{block:Chat}
+					<li class="post_chat">
+						{block:Title}
+							<h3><a href="{Permalink}">{Title}</a></h3>
+						{/block:Title}
+						
+						<ul class="chat">
+							{block:Lines}
+								<li class"{Alt} user_{UserNumber}">
+									{block:Lable}
+										<span class="label">{Lable}</span>
+									{/block:Lable}
+									{Line}
+								</li>
+							{/block:Lines}
+						</ul>
+					</li>
+				{/block:Chat}
+				
+				{block:Video}
+					<li class="post_video">
+						{Video-500}
+						{block:Caption}
+							<div class="caption">{Caption}</div>
+						{/block:Caption}
+					</li>
+				{/block:Video}
+				
+				{block:Audio}
+					<li class="post_audio">
+						{AudioPlayerWhite}
+						{Block:Caption}
+							<div class="caption">{Caption}</div>
+						{/block:Caption}
+					</li>
+				{/block:Audio}
+			{/block:Posts}	
+		</ul>
+		
+		<p id="footer">
+			{block:Pagination}
+				{block:PreviousPage}
+					<a href="{PreviousPage}">&#171; Previous</a>
+				{/block:PreviousPage}
+				
+				{block:JumpPagination length="5"}
+					{block:CurrentPage}
+						<span class="current_page">{PageNumber}</span>
+					{/block:CurentPage}
+					
+					{block:JumpPage}
+						<a class="jump_page" href="{URL}">{PageNumber}</a>
+					{/block:JumpPage}
+				{/block:JumpPagination}
+				
+				{block:NextPage}
+					<a href="{NextPage}">next &#187;</a>
+				{/block:NextPage}
+			{/block:Pagination}
+			
+			<a href="/archive">Archive</a>
+		</p>
+		
+		        {block:IfUseEndlessScrolling}
+        <script type="text/javascript" src="http://assets.tumblr.com/javascript/jquery-1.7.2.min.js"></script>
+        <script type="text/javascript">
+            var Tumblelog = {};
+
+            // AJAX
+            Tumblelog.Ajax = (function(url, callbackFunction) {
+                this.bindFunction = function (caller, object) {
+                    return function() {
+                        return caller.apply(object, [object]);
+                    };
+                };
+
+                this.stateChange = function (object) {
+                    if (this.request.readyState==4) this.callbackFunction(this.request.responseText);
+                };
+
+                this.getRequest = function() {
+                    if (window.ActiveXObject)
+                        return new ActiveXObject('Microsoft.XMLHTTP');
+                    else if (window.XMLHttpRequest)
+                        return new XMLHttpRequest();
+                    return false;
+                };
+
+                this.postBody = (arguments[2] || "");
+                this.callbackFunction=callbackFunction;
+                this.url=url;
+                this.request = this.getRequest();
+
+                if(this.request) {
+                    var req = this.request;
+                    req.onreadystatechange = this.bindFunction(this.stateChange, this);
+
+                    if (this.postBody!=="") {
+                        req.open("POST", url, true);
+                        req.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
+                        req.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+                        req.setRequestHeader('Connection', 'close');
+                    } else {
+                        req.open("GET", url, true);
+                    }
+
+                    req.send(this.postBody);
+                }
+            });
+            
+            // Infinite Scroll
+            Tumblelog.Infinite = (function() {
+
+                var _$window          = $(window);
+                var _$posts           = $('#posts');
+                var _trigger_post     = null;
+
+                var _current_page     = {CurrentPage};
+                var _total_pages      = {TotalPages};
+                var _url              = document.location.href.split("#")[0];
+                var _infinite_timeout = null;
+                var _is_loading       = false;
+                var _posts_loaded     = false;
+                
+                var _Ajax = Tumblelog.Ajax;
+
+                function init() {            
+                    set_trigger();
+                    enable_scroll();
+                }
+
+                function set_trigger () {
+                    var $all_posts = _$posts.find('li.post');
+                
+                    if (!_posts_loaded) {
+                        _posts_loaded = $all_posts.length;
+                    }
+
+                    if (_posts_loaded >= 4) {
+                        _trigger_post = _$posts.find('li.post:eq(' + ($all_posts.length - 4) + ')').get(0);
+                    } else if (_posts_loaded >= 3) {
+                        _trigger_post = _$posts.find('li.post:eq(' + ($all_posts.length - 3) + ')').get(0);
+                    } else {
+                        _trigger_post = _$posts.find('li.post:last').get(0);
+                    }
+                };
+
+                function in_viewport (el) {
+                    if (el == null) return;
+                    var top = el.offsetTop;
+                    var height = el.offsetHeight;
+
+                    while (el.offsetParent) {
+                        el = el.offsetParent;
+                        top += el.offsetTop;
+                    }
+
+                    return (top < (window.pageYOffset + window.innerHeight));
+                };
+
+                function enable_scroll() {
+                    $('#footer .pagination').hide();
+                    _$window.scroll(function(){
+                        clearTimeout(_infinite_timeout);
+                        infinite_timeout = setTimeout(infinite_scroll, 100);
+                    });
+                }
+
+                function disable_scroll() {
+                    clearTimeout(_infinite_timeout);
+                    $(window).unbind('scroll');
+                }
+
+                function infinite_scroll() {
+                    if (_is_loading) return;
+
+                    if (in_viewport(_trigger_post)) {
+                        load_more_posts(); // w00t
+                    }
+                };
+
+                function load_more_posts() {
+                    if (_is_loading) return;
+                    _is_loading = true;
+
+                    // Build URL
+                    if (_url.charAt(_url.length - 1) != '/') _url += '/';
+                    if (_current_page === 1) _url += 'page/1';
+                    _current_page++;
+                    _url = _url.replace('page/' + (_current_page - 1), 'page/' + _current_page);
+
+                    // Fetch
+                    _Ajax(_url, function(data) {
+                        var new_posts_html = data.split('<!-- START' + ' POSTS -->')[1].split('<!-- END' + ' POSTS -->')[0];
+                        var $new_posts = $('#posts', data);
+
+                        // Insert posts and update counters
+                        $('#posts').append(new_posts_html);
+                        _posts_loaded = $new_posts.find('li.post').length;
+
+                        if (_posts_loaded) {
+                            var post_ids = [];
+                            var like_buttons = $('#posts', data).find('.like_button');
+                            for (var i = 0; i < like_buttons.length; i++) {
+                                var button = like_buttons[i];
+                                if ($(button).attr('data-post-id')) {
+                                    post_ids.push($(button).attr('data-post-id'));
+                                }
+                            }
+                            if (post_ids.length > 0) Tumblr.LikeButton.get_status_by_post_ids(post_ids);
+                        }
+
+                        if ((_posts_loaded > 0) && (_current_page < _total_pages)) {
+                            set_trigger();
+                            _is_loading = false;
+
+                        } else {
+                            disable_scroll();
+                        }
+                    });
+
+                    // Stats
+                    {block:IfGoogleAnalyticsID}
+                        if (typeof window._gaq != 'undefined') {
+                            _gaq.push(['_trackPageview', _url]);
+                        }
+                    {/block:IfGoogleAnalyticsID}
+                }
+
+                return {
+                    init: init
+                };
+            });
+
+            $(function() {
+                {block:IndexPage}
+                if ( !($.browser.msie && (parseInt($.browser.version, 10) < 9) ) ) {
+                    var InfiniteScroll = new Tumblelog.Infinite;
+                    InfiniteScroll.init();
+                }
+                {/block:IndexPage}
+            });
+        </script>
+        {/block:IfUseEndlessScrolling}
+	</body>
+</html>

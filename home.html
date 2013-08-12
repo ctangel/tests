@@ -1,15 +1,11 @@
 <!DOCTYPE html>
 <html>
-	<head>
-		<script type="text/javascript" src="jQuery/jquery-2.0.3.min.js"></script>
+	<head>		
 		<script type="text/javascript" src="Style/less-1.4.1.min.js"></script>
-		<link rel="stylesheet/less" type="text/css" href="Style/base.less">
+		<script type="text/javascript" src="jQuery/jquery-2.0.3.min.js"></script>
+		<script type="text/javascript" src="JQuery/test.js"></script>
+		<!--<link rel="stylesheet/less" type="text/css" href="Style/base.less">-->
 		<link rel="stylesheet/css" type="text/css" href="Style/base.css">
-		<script>
-			$(document).ready( function() {
-				$("li").css("color","blue").append("<li> Hello world </li>")
-			});
-		</script>
 		<title> Testing </title>
 	</head>
 	<body>
@@ -24,10 +20,14 @@
 				<li> Item 4 </li>
 			</ul>
 			
-			<p> Sentence one. </p>
-			<p> Sentence two. </p>
-			<p> Sentence three. </p>
-			<p> Sentence four. </p>
+			<p id="one" class="a"> Sentence one. </p>
+			<p id="two"> Sentence two. </p>
+			<p id="three"> Sentence three. </p>
+			<p id="four"> Sentence four. </p>
+			
+			<div id="box">
+				<p> A box.</p>
+			</div>
 		</section>
 	</body>
 </html>

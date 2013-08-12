@@ -5,6 +5,7 @@ for(i = 1; i <= amount; i++) {
 	list.push(number);
 };
 console.log(list.join());
+document.write(list.join());
 do {
  var swap = 0;
     for(a = 0; a <= list.length - 1; a++) {
@@ -22,4 +23,4 @@ do {
 } while(swap != -amount);
 
 console.log(list.join());
-document.write(list.join());
+document.write("<br/>" + list.join());
