@@ -5,49 +5,7 @@
 		<script type="text/javascript" src="../jQuery/jquery-2.0.3.min.js"></script>
 		<script type="text/javascript" src="../jQuery/jquery-ui-1.10.3.custom/js/jquery-ui-1.10.3.custom.min.js"></script>
 		<script type="text/javascript" src="slider.js"></script>
-		<link href="slider.css" rel="stylesheet/css" type="text/css" />
-		<style>
-body {
-	width: 500px;
-	padding: 50px;
-	margin: 0px auto;
-}
-#slider {
-	width: 300px;
-	height: 400px;
-	overflow: hidden;
-	margin: 0px auto;
-}
-#slider ul {
-	list-style: none;
-	width: 1500px;
-	height: 300px;
-	margin: 0px;
-	padding: 0px;
-}
-#slider li {
-	float: left;
-	width: 300px;
-	height: 300px;
-}
-.button {
-	font-family: Arial, sans-serif;
-	font-size: 14px;
-	display: block;
-	padding: 6px;
-	border: 1px solid #ccc;
-	margin: 10px 0px 0px 0px;
-}
-.button:hover {
-	background: cyan;
-}
-.back {
-	float: left;
-}
-.next {
-	float: right;
-}
-		</style>
+		<link href="slider.css" rel="stylesheet" type="text/css" />
 		<title> jQuery Slider</title>
 	</head>
 	<body>
@@ -63,8 +21,8 @@ body {
 				<li><img src="http://placekitten.com/300/300" alt="Kitten" /></li>
 				<li><img src="http://placekitten.com/300/300" alt="Kitten" /></li>
 				</ul>
-				<span class="button back">Back</span>
-				<span class="button next">Next</span>
+				<span id="button" class="back">Back</span>
+				<span id="button" class="next">Next</span>
 			</div>
 
 		</section>

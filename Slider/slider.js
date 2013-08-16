@@ -2,7 +2,7 @@ $(function(){
 	var sliderWrapper = $("#slider");
 	var sliderList = sliderWrapper.children("ul");
 	var sliderItems = sliderList.children("li");
-	var buttons = sliderWrapper.children(".button");
+	var buttons = sliderWrapper.children("#button");
 
 	var animateSlider = function(direction, duration) {
 		sliderList.animate({

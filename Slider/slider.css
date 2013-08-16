@@ -21,7 +21,7 @@ body {
 	width: 300px;
 	height: 300px;
 }
-.button {
+#button {
 	font-family: Arial, sans-serif;
 	font-size: 14px;
 	display: block;
@@ -29,7 +29,7 @@ body {
 	border: 1px solid #ccc;
 	margin: 10px 0px 0px 0px;
 }
-.button:hover {
+#button:hover {
 	background: cyan;
 }
 .back {
